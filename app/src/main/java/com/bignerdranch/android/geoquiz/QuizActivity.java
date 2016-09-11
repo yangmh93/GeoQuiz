@@ -36,7 +36,13 @@ public class QuizActivity extends AppCompatActivity {
     };
 
     private int mCurrentIndex = 0;
-    private boolean mIsCheater;
+    private boolean[] mIsCheater = new boolean[] {
+            false,
+            false,
+            false,
+            false,
+            false
+    };
 
     private void updateQuestion() {
 //        Log.d(TAG, "Updating question text for question #" + mCurrentIndex,
@@ -48,7 +54,7 @@ public class QuizActivity extends AppCompatActivity {
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[Math.abs(mCurrentIndex)].isAnswerTrue();
         int messageResId = 0;
-        if (mIsCheater) {
+        if (mIsCheater[mCurrentIndex]) {
             messageResId = R.string.judgment_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -72,7 +78,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                mIsCheater = false;
+                //mIsCheater[mCurrentIndex] = false;
                 updateQuestion();
             }
         });
@@ -97,7 +103,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = ((mCurrentIndex - 1) % mQuestionBank.length + mQuestionBank.length) % mQuestionBank.length;
-                mIsCheater = false;
+                //mIsCheater[mCurrentIndex] = false;
                 updateQuestion();
             }
         });
@@ -107,7 +113,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-                mIsCheater = false;
+                //mIsCheater[mCurrentIndex] = false;
                 updateQuestion();
             }
         });
@@ -138,7 +144,7 @@ public class QuizActivity extends AppCompatActivity {
             if (data == null) {
                 return;
             }
-            mIsCheater = CheatActivity.wasAnswerShown(data);
+            mIsCheater[mCurrentIndex] = CheatActivity.wasAnswerShown(data);
         }
     }
 
