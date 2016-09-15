@@ -11,3 +11,5 @@ ch3 - bonus: landscape prev button
 ch4
 
 ch5 - challenges: fixed CheatActivity loophole, fixed Next loophole
+
+ch6 - challenges: report build version
